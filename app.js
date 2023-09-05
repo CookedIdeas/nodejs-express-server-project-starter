@@ -3,6 +3,7 @@ const hpp = require('hpp');
 const toobusy_js = require('toobusy-js');
 const helmet = require('helmet');
 const filter = require('content-filter');
+require('dotenv').config();
 
 const routes = require('./routes/routes');
 
@@ -25,9 +26,13 @@ app.use(function (req, res, next) {
 //SECURITY :  secure http headers with helmet
 app.use(helmet());
 
-const accessControlAllowOriginHeader = '*';
+// Add here your allowed origins
 const cors = {
-  origin: ['http://localhost:3000', 'http://localhost:3000/'],
+  origin: [
+    'http://localhost:3000',
+    'http://localhost:3000/',
+    'YOUR ALLOWED ORIGIN HERE',
+  ],
   default: 'http://localhost:3000',
 };
 
@@ -80,7 +85,8 @@ const normalizePort = (val) => {
   }
   return false;
 };
-const port = normalizePort(process.env.PORT || '3000');
+const port = normalizePort(process.env.PORT);
+console.log(port);
 app.set('port', port);
 
 const errorHandler = (error) => {
