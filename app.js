@@ -28,7 +28,7 @@ app.use(helmet());
 
 // Add here your allowed origins
 const cors = {
-  origin: [
+  allowedOrigin: [
     'http://localhost:3000',
     'http://localhost:3000/',
     'YOUR ALLOWED ORIGIN HERE',
@@ -37,7 +37,7 @@ const cors = {
 };
 
 app.use((req, res, next) => {
-  const origin = cors.origin.includes(req.header('origin').toLowerCase())
+  const origin = cors.allowedOrigin.includes(req.header('origin').toLowerCase())
     ? req.headers.origin
     : cors.default;
   res.setHeader('Access-Control-Allow-Origin', origin);

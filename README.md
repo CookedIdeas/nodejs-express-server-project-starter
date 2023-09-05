@@ -1,4 +1,4 @@
-# A simple node server with express
+# PROJECT STARTER : A simple node server with express
 
 A basic express server to easily start a new project
 
@@ -20,8 +20,23 @@ npm i
 npm start
 ```
 
-Port 3000 is used by default if not already used and is authorized. If needed, change it in .env file.
+Port 3000 is used by default. If needed, change it in .env file.
+Only http://localhost:3000 is authorized as an origin. If needed, you can add or remove allowed origins in app.js, search for "const cors" and modify allowedOrigin array.
 
-To test the server, make a get request at http://localhost:{YOUR PORT}/api/test
+## Git init helper
+
+To init your new git :
+
+```
+[add ".env" to .gitignore file]
+git init
+git add .
+git commit -m "first commit"
+git branch -M main
+git remote set-url origin {new git url here}
+git push -u origin main
+```
+
+To test the server, make a GET request at http://localhost:{3000 || YOUR PORT HERE}/api/test
 
 Happy coding ;)
