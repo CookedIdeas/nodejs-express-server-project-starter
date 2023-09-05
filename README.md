@@ -20,3 +20,7 @@ npm start
 ```
 
 Port 3000 is used by default if not already used and is authorized. If needed, change it in .env file.
+
+To test the server, make a get request at http://localhost:{YOUR PORT}/api/test
+
+Happy coding ;)
