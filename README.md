@@ -15,6 +15,7 @@ A basic express server to easily start a new project
 
 ```
 git clone https://github.com/CookedIdeas/extra-simple-express-server.git
+cd extra-simple-express-server
 npm i
 npm start
 ```
