@@ -4,6 +4,8 @@ const toobusy_js = require('toobusy-js');
 const helmet = require('helmet');
 const filter = require('content-filter');
 
+const routes = require('./routes/routes');
+
 const app = express();
 
 //SECURITY : protect against HTTP Parameter Pollution attacks
@@ -60,19 +62,7 @@ let filterOptions = {
 };
 app.use(filter(filterOptions));
 
-app.use((req, res, next) => {
-  console.log('Request received!');
-  next();
-});
-
-app.use((req, res, next) => {
-  res.status(201);
-  next();
-});
-
-app.use((req, res, next) => {
-  console.log('Response sended !');
-});
+app.use('/api', routes);
 
 module.exports = app;
 
