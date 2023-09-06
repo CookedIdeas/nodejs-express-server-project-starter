@@ -9,12 +9,12 @@ const routes = require('./routes/routes');
 
 const app = express();
 
-//SECURITY : protect against HTTP Parameter Pollution attacks
+// SECURITY : protect against HTTP Parameter Pollution attacks
 app.use(hpp());
 
-//SECURITY : toobusy package send response if server is too busy
-//Keeps the app responsive
-//Protection against DoS Attack
+// SECURITY : toobusy package send response if server is too busy
+// Keeps the app responsive
+// Protection against DoS Attack
 app.use(function (req, res, next) {
   if (toobusy_js()) {
     logger.log('verbose', `server is too busy`);
@@ -23,29 +23,30 @@ app.use(function (req, res, next) {
     next();
   }
 });
-//SECURITY :  secure http headers with helmet
+
+// SECURITY :  secure http headers with helmet
 app.use(helmet());
 
 // Add here your allowed origins
 const cors = {
-  allowedOrigin: [
-    'http://localhost:3000',
-    'http://localhost:3000/',
-    'YOUR ALLOWED ORIGIN HERE',
-  ],
-  default: 'http://localhost:3000',
+  allowedOrigins: ['http://localhost:8888', 'YOUR_ALLOWED_ORIGIN_HERE'],
+  default: 'http://localhost:8888',
 };
 
 app.use((req, res, next) => {
-  const origin = cors.allowedOrigin.includes(req.header('origin').toLowerCase())
-    ? req.headers.origin
+  const allowedOrigin = req.header('origin')
+    ? cors.allowedOrigins.includes(req.header('origin').toLowerCase())
+      ? req.headers.origin
+      : cors.default
     : cors.default;
-  res.setHeader('Access-Control-Allow-Origin', origin);
-  // res.setHeader('Access-Control-Allow-Origin', '*');
+
+  res.setHeader('Access-Control-Allow-Origin', allowedOrigin);
+
   res.setHeader(
     'Access-Control-Allow-Headers',
     'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization'
   );
+
   res.setHeader(
     'Access-Control-Allow-Methods',
     'GET, POST, PUT, DELETE, PATCH, OPTIONS'
@@ -69,9 +70,16 @@ app.use(filter(filterOptions));
 
 app.use('/api', routes);
 
+// error handling
+
+app.use(function (err, req, res, next) {
+  res.status(err.status || 500);
+  res.send(err);
+});
+
 module.exports = app;
 
-//server.js
+// server logic
 const http = require('http');
 
 const normalizePort = (val) => {
@@ -85,8 +93,8 @@ const normalizePort = (val) => {
   }
   return false;
 };
-const port = normalizePort(process.env.PORT);
-console.log(port);
+const port = normalizePort(process.env.PORT || '3000');
+
 app.set('port', port);
 
 const errorHandler = (error) => {

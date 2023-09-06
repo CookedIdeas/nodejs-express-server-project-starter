@@ -14,29 +14,17 @@ A basic express server to easily start a new project
 ## Installation and use
 
 ```
-git clone https://github.com/CookedIdeas/extra-simple-express-server.git
-cd extra-simple-express-server
+mkdir your-folder-name
+cd your-folder-name
+git init
+git pull https://github.com/CookedIdeas/extra-simple-express-server.git
 npm i
 npm start
 ```
 
 Port 3000 is used by default. If needed, change it in .env file.
-Only http://localhost:3000 is authorized as an origin. If needed, you can add or remove allowed origins in app.js, search for "const cors" and modify allowedOrigin array.
+Only http://localhost:8888 is authorized as an origin. If needed, you can add or remove allowed origins in app.js, search for "const cors" and modify allowedOrigin array.
 
-## Git init helper
-
-To init your new git :
-
-```
-[add ".env" to .gitignore file]
-git init
-git add .
-git commit -m "first commit"
-git branch -M main
-git remote set-url origin {new git url here}
-git push -u origin main
-```
-
-To test the server, make a GET request at http://localhost:{3000 || YOUR PORT HERE}/api/test
+To test the server, make a GET request at http://localhost:3000/api/test (make sure to use origin : http://localhost:8888)
 
 Happy coding ;)
