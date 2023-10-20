@@ -1,6 +1,5 @@
 const express = require('express');
 const hpp = require('hpp');
-const toobusy_js = require('toobusy-js');
 const helmet = require('helmet');
 const filter = require('content-filter');
 require('dotenv').config();
@@ -12,33 +11,26 @@ const app = express();
 // SECURITY : protect against HTTP Parameter Pollution attacks
 app.use(hpp());
 
-// SECURITY : toobusy package send response if server is too busy
-// Keeps the app responsive
-// Protection against DoS Attack
-app.use(function (req, res, next) {
-  if (toobusy_js()) {
-    logger.log('verbose', `server is too busy`);
-    res.status(503).send('Server Too Busy');
-  } else {
-    next();
-  }
-});
-
 // SECURITY :  secure http headers with helmet
 app.use(helmet());
 
 // Add here your allowed origins
-const cors = {
+const yourAllowedOrigins = {
   allowedOrigins: ['http://localhost:8888', 'YOUR_ALLOWED_ORIGIN_HERE'],
   default: 'http://localhost:8888',
 };
 
 app.use((req, res, next) => {
+  // test if req header origin exists in your allowedOrigins array
+  // if true → Access-Control-Allow-Origin header is set to req header origin
+  // if false → Access-Control-Allow-Origin header is set to yourAllowedOrigins.default
   const allowedOrigin = req.header('origin')
-    ? cors.allowedOrigins.includes(req.header('origin').toLowerCase())
+    ? yourAllowedOrigins.allowedOrigins.includes(
+        req.header('origin').toLowerCase()
+      )
       ? req.headers.origin
-      : cors.default
-    : cors.default;
+      : yourAllowedOrigins.default
+    : yourAllowedOrigins.default;
 
   res.setHeader('Access-Control-Allow-Origin', allowedOrigin);
 
@@ -75,6 +67,7 @@ app.use('/api', routes);
 app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.send(err);
+  throw new Error(err);
 });
 
 module.exports = app;

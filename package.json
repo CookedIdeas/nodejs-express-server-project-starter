@@ -1,13 +1,13 @@
 {
   "name": "simple-express-server",
   "version": "1.0.0",
-  "description": "",
+  "description": "A simple Express.js server to easily start a new project !",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon app"
   },
-  "author": "",
+  "author": "https://github.com/CookedIdeas - Gabriel Gourcerol",
   "license": "ISC",
   "dependencies": {
     "content-filter": "^1.1.2",
@@ -15,6 +15,6 @@
     "express": "^4.18.2",
     "helmet": "^7.0.0",
     "hpp": "^0.2.3",
-    "toobusy-js": "^0.5.1"
+    "nodemon": "^3.0.1"
   }
 }
