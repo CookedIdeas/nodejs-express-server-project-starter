@@ -34,7 +34,12 @@ Only http://localhost:8888 is authorized as an origin. If needed, you can add or
 To test the server, make a GET request at http://localhost:3000/api/test (make sure to use an allowed origin).
 
 Happy coding ;)
+Feel free to give feedback or suggest modifications and new features !
 
 ## What's next ?
 
 Content-filter package will be replaced by a sanitizer.
+
+Other backend starter pack in a near future :
+A strapi (a node.js headless CMS) starter pack.
+An express.js server with mongoDB logic starter pack.
